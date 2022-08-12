@@ -43,16 +43,16 @@ Add line-by-line comments wheres prompted in the code below, explaining what eac
 # ------ WHAT HAPPENS HERE? ------ #
 # ------ comment line-by-line ---- #
 
-# The line below...
+# create vector for time over 8 years to see how population changes over that time
 time_yr <- seq(from = 0, to = 8, by = 1)
 
-# The line below...
+# Tetting up the empty matrix with the dimensions of time vector and the fish_year populations vector
 proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))
 
-# The line below...
+# Setting the first row in the matrix to be the initial population (fish_year0)
 proj_year[1, ] <- fish_year0
 
-# The for loop below...
+# For each element in the time_yr vector, starting in row 2 because first row is already populated with fish_yeear0, populate with dot product of fish leslie matrix and the new starting population to get the next year's population
 for (i in 2:length(time_yr)) {
   proj_year[i,] <- fish_leslie %*% proj_year[i-1,]
 }
