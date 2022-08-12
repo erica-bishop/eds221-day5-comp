@@ -1,0 +1,78 @@
+---
+title: "Unit Testing"
+format: html
+editor: visual
+---
+
+```{r}
+library(testthat)
+```
+
+
+## Unit test examples
+
+First make a function to test:
+
+```{r}
+
+mean_range <- function(df) {
+  col_means <- apply(X = df, MARGIN = 2, FUN = mean, na.rm = TRUE)
+  col_mean_max <- max(col_means)
+  col_min_min <- min(col_means)
+  print(c(col_mean_max, col_min_min))
+}
+
+#Now try with a numeric dataset - good to test with mtcars because its in base R
+
+mean_range(mtcars)
+
+```
+
+Now use some testthat tests
+
+```{r}
+
+expect_length(mean_range(mtcars), 2)
+
+```
+```{r}
+expect_true(mean_range(mtcars)[1] >= mean_range(mtcars)[2])
+```
+
+```{r}
+expect_type(mean_range(mtcars), "double")
+```
+
+```{r}
+expect_vector(mean_range(mtcars), 2)
+```
+Almost all unit tests could be rewritten as logical tests, but these functions make it easier
+
+For example, rewrite expecttype to be a logical:
+
+```{r}
+##for example, if you were expecting a character output:
+
+char_vec <- c("bird", "dog")
+
+expect_true(is.character(char_vec))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
